@@ -8,7 +8,9 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ChaincodeData {
 	private String jsonrpc = "2.0";
-	private String method = "deploy";
+	
+	@NonNull
+	private String method;
 	
 	@NonNull 
 	private PostParams params;

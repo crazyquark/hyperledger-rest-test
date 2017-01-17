@@ -6,7 +6,7 @@ import lombok.RequiredArgsConstructor;
 
 @Data
 @RequiredArgsConstructor
-public class DeployParams implements PostParams {
+public class ChaincodeParams implements PostParams {
 	private int type = 1;
 	
 	@NonNull
