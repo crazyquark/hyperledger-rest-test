@@ -26,9 +26,12 @@ public class Application {
 	@Bean
 	public CommandLineRunner run(RestTemplate restTemplate) throws Exception {
 		return args -> {
-			Quote quote = restTemplate.getForObject(
-					"http://gturnquist-quoters.cfapps.io/api/random", Quote.class);
-			log.info(quote.toString());
+			String res = restTemplate.postForObject("http://localhost:7050/registrar", new LoginData("jim", "6avZQLwcUe9b"), String.class);
+			log.info("Login: " + res);
+			
+			DeployResult deployRes = restTemplate.postForObject("http://localhost:7050/chaincode", 
+					new ChaincodeData(new DeployParams(new ChaincodeID("github.com/hyperledger/fabric/examples/chaincode/go/chaincode_example02"), new ConstructorMsg(new String[]{"init", "a", "100", "b", "200"}), "jim"), "1"), DeployResult.class);
+			log.info("Deploy: " + deployRes.getResult().getMessage());
 		};
 	}
 }
